@@ -4,6 +4,9 @@ import Movie from '../movie/movie'
 import Chain from '../chain/chain'
 import Sale from '../sale/sale'
 import My from '../my/my'
+import User from '../user/user'
+import Login from "../login/login"
+import FilmOrder from "../filmOrder/filmOrder"
 import {Route,NavLink,Switch,Redirect} from 'react-router-dom'
 import '../../font/iconfont.css'
 var DIV  = styled.div`
@@ -34,6 +37,18 @@ var Ul = styled.ul`
     	}
     }
 `
+function AuthLogin(Com) {
+    return class extends Com{
+        render(){
+            if(sessionStorage.getItem("user")){
+                return super.render();
+            }
+            else{
+                return <Redirect to="/login" />
+            }
+        }
+    }
+}
 class Footer extends Component{
 	render(){
                   return   <DIV>
@@ -42,6 +57,9 @@ class Footer extends Component{
                                     <Route path="/chain" component={Chain}/>
                                     <Route path="/sale" component={Sale}/>
                                     <Route path="/my" component={My}/>
+                                    <Route path="/user" component={AuthLogin(User)}/>
+                                    <Route path="/login" component={Login}/>
+                                    <Route path="/filmOrder" component={FilmOrder}/>
                                  </Switch>
                                  <Ul>
                                        <li>
